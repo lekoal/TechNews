@@ -1,7 +1,8 @@
-package com.private_projects.technews
+package com.private_projects.technews.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.private_projects.technews.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

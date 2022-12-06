@@ -4,6 +4,7 @@
 .idea
 /.idea
 .DS_Store
+/apikeys.properties
 /build
 /captures
 .externalNativeBuild
