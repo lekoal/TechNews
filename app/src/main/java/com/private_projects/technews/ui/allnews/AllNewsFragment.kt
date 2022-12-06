@@ -3,6 +3,7 @@ package com.private_projects.technews.ui.allnews
 import android.os.Bundle
 import android.view.View
 import com.private_projects.technews.databinding.FragmentAllNewsBinding
+import com.private_projects.technews.ui.main.MainActivity
 import com.private_projects.technews.utils.ViewBindingFragment
 import org.koin.android.ext.android.getKoin
 import org.koin.core.qualifier.named
@@ -24,9 +25,11 @@ class AllNewsFragment :
         super.onViewCreated(view, savedInstanceState)
         viewModel.result.observe(viewLifecycleOwner) {
             it.articles.forEach { article ->
-                println(article.source.name)
+
             }
         }
         viewModel.getNews()
+        val parentActivity: MainActivity = requireActivity() as MainActivity
+        parentActivity.setProgress(true)
     }
 }
