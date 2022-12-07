@@ -2,8 +2,8 @@ package com.private_projects.technews.di
 
 import com.private_projects.technews.data.newsapi.NewsApiRepositoryImpl
 import com.private_projects.technews.data.newsapi.NewsData
+import com.private_projects.technews.ui.CommonContract
 import com.private_projects.technews.ui.allnews.AllNewsFragment
-import com.private_projects.technews.ui.main.NewsPagerAdapter
 import com.private_projects.technews.ui.allnews.AllNewsViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
@@ -15,11 +15,8 @@ val allNewsModule = module {
         NewsApiRepositoryImpl(get(named("news_api")), get(named("all_domains")))
     }
     scope<AllNewsFragment> {
-        viewModel(named("all_news_view_model")) {
+        viewModel<CommonContract.CommonViewModel>(named("all_news_view_model")) {
             AllNewsViewModel(get(named("news_api_repository")))
-        }
-        scoped(named("all_news_adapter")) {
-            NewsPagerAdapter()
         }
     }
 }

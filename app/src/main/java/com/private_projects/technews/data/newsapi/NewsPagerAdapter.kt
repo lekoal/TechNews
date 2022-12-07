@@ -1,4 +1,4 @@
-package com.private_projects.technews.ui.main
+package com.private_projects.technews.data.newsapi
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,12 +7,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.private_projects.technews.R
-import com.private_projects.technews.data.newsapi.NewsDTO
-import com.private_projects.technews.databinding.AllNewsRvItemBinding
+import com.private_projects.technews.databinding.NewsRvItemBinding
 import java.text.SimpleDateFormat
 
 class NewsPagerAdapter :
-    PagingDataAdapter<NewsDTO.Article, NewsPagerAdapter.AllNewsViewHolder>(NewsListComparator) {
+    PagingDataAdapter<NewsDTO.Article, NewsPagerAdapter.NewsViewHolder>(NewsListComparator) {
     var onItemClick: ((String) -> Unit)? = null
 
     object NewsListComparator : DiffUtil.ItemCallback<NewsDTO.Article>() {
@@ -29,10 +28,10 @@ class NewsPagerAdapter :
 
     }
 
-    override fun onBindViewHolder(holder: AllNewsViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         val newsItem = getItem(position)
         holder.title.text = newsItem?.title
-        holder.author.text = newsItem?.author
+        holder.author.text = newsItem?.author ?: ""
         val formatter = SimpleDateFormat("yyyy-dd-MM'T'hh:mm:ss'Z'")
         val date = formatter.parse(newsItem!!.publishedAt)
         val setDateFormat = SimpleDateFormat("HH:mm dd.MM.yy")
@@ -51,19 +50,19 @@ class NewsPagerAdapter :
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AllNewsViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = AllNewsRvItemBinding.inflate(inflater, parent, false)
-        return AllNewsViewHolder(binding)
+        val binding = NewsRvItemBinding.inflate(inflater, parent, false)
+        return NewsViewHolder(binding)
     }
 
-    inner class AllNewsViewHolder(binding: AllNewsRvItemBinding) :
+    inner class NewsViewHolder(binding: NewsRvItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         val view = binding.root
-        val title = binding.allNewsRvItemTitle
-        val author = binding.allNewsRvItemAuthor
-        val dateTime = binding.allNewsRvItemDate
-        val image = binding.allNewsRvItemImage
-        val description = binding.allNewsRvItemDescription
+        val title = binding.rvItemTitle
+        val author = binding.rvItemAuthor
+        val dateTime = binding.rvItemDate
+        val image = binding.rvItemImage
+        val description = binding.rvItemDescription
     }
 }

@@ -9,7 +9,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/all_news_rv"
         android:layout_width="match_parent"
-        tools:listitem="@layout/all_news_rv_item"
+        tools:listitem="@layout/news_rv_item"
         android:layout_height="match_parent" />
 
 </FrameLayout>

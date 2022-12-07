@@ -5,6 +5,7 @@ import com.private_projects.technews.data.newsapi.NewsData
 import com.private_projects.technews.domain.NewsApi
 import com.private_projects.technews.ui.main.MainActivity
 import com.private_projects.technews.ui.main.MainViewModel
+import com.private_projects.technews.data.newsapi.NewsPagerAdapter
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
@@ -22,6 +23,9 @@ val mainModule = module {
     }
     factory(named("news_api")) {
         get<Retrofit>(named("retrofit")).create(NewsApi::class.java)
+    }
+    factory(named("news_adapter")) {
+        NewsPagerAdapter()
     }
     scope<MainActivity> {
         viewModel(named("main_view_model")) {

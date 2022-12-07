@@ -1,59 +1,30 @@
 package com.private_projects.technews.ui.allnews
 
-import android.os.Bundle
-import android.view.View
-import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
+import com.private_projects.technews.data.newsapi.NewsPagerAdapter
 import com.private_projects.technews.databinding.FragmentAllNewsBinding
-import com.private_projects.technews.ui.main.NewsPagerAdapter
-import com.private_projects.technews.utils.ViewBindingFragment
+import com.private_projects.technews.ui.CommonContract
+import org.koin.android.ext.android.get
 import org.koin.android.ext.android.getKoin
 import org.koin.core.qualifier.named
 
 class AllNewsFragment :
-    ViewBindingFragment<FragmentAllNewsBinding>(FragmentAllNewsBinding::inflate) {
-    private val scope by lazy {
+    CommonContract.CommonFragment<FragmentAllNewsBinding>(FragmentAllNewsBinding::inflate) {
+    override val scope by lazy {
         getKoin().getOrCreateScope<AllNewsFragment>(SCOPE_ID)
     }
-    private val viewModel: AllNewsViewModel by lazy {
+    override val viewModel: CommonContract.CommonViewModel by lazy {
         scope.get(named("all_news_view_model"))
     }
-    private val adapter: NewsPagerAdapter by lazy {
-        scope.get(named("all_news_adapter"))
+    override val adapter: NewsPagerAdapter by lazy {
+        get(named("news_adapter"))
     }
-
-    private lateinit var layoutManager: LinearLayoutManager
 
     companion object {
         private const val SCOPE_ID = "all_news_scope"
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        layoutManager = LinearLayoutManager(
-            requireContext(), LinearLayoutManager.VERTICAL, false
-        )
-//        val parentActivity: MainActivity = requireActivity() as MainActivity
-//        parentActivity.setProgress(true)
-        initRV()
-        setData()
-        onItemClick()
-    }
-
-    private fun initRV() {
+    override fun initRV() {
         binding.allNewsRv.layoutManager = layoutManager
         binding.allNewsRv.adapter = adapter
-    }
-
-    private fun setData() {
-        viewModel.getNews().observe(viewLifecycleOwner) {
-            adapter.submitData(lifecycle, it)
-        }
-    }
-
-    private fun onItemClick() {
-        adapter.onItemClick = { url ->
-            Toast.makeText(requireContext(), url, Toast.LENGTH_SHORT).show()
-        }
     }
 }
