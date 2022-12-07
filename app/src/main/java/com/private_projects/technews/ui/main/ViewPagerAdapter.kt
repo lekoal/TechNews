@@ -2,8 +2,6 @@ package com.private_projects.technews.ui.main
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.private_projects.technews.ui.allnews.AllNewsFragment
 import com.private_projects.technews.ui.ferra.FerraNewsFragment

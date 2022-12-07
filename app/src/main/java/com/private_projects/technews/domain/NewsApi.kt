@@ -10,8 +10,9 @@ interface NewsApi {
     @GET("everything?language=${NewsData.LANG}")
     suspend fun getNews(
         @Query("domains") domains: String,
-        @Query("sortBy") sorting: String,
+        @Query("sortBy") sorting: String = NewsData.SORT_PUBLISHED,
         @Query("pageSize") pageSize: Int = NewsData.PAGE_SIZE,
+        @Query("page") page: Int,
         @Query("apiKey") apiKey: String = NewsData.NEWS_API_KEY
     ): Response<NewsDTO>
 }
