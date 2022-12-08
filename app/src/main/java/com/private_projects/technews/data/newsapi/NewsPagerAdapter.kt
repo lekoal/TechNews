@@ -31,7 +31,11 @@ class NewsPagerAdapter :
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         val newsItem = getItem(position)
         holder.title.text = newsItem?.title
-        holder.author.text = newsItem?.author ?: ""
+        if (newsItem?.author.isNullOrBlank()) {
+            holder.author.text = newsItem?.source?.name
+        } else {
+            holder.author.text = newsItem?.author
+        }
         val formatter = SimpleDateFormat("yyyy-dd-MM'T'hh:mm:ss'Z'")
         val date = formatter.parse(newsItem!!.publishedAt)
         val setDateFormat = SimpleDateFormat("HH:mm dd.MM.yy")

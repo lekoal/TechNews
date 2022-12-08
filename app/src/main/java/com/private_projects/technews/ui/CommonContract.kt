@@ -5,21 +5,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.paging.LoadState
-import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewbinding.ViewBinding
-import com.private_projects.technews.data.newsapi.NewsDTO
 import com.private_projects.technews.data.newsapi.NewsPagerAdapter
+import com.private_projects.technews.domain.NewsApiRepository
 import com.private_projects.technews.ui.main.MainActivity
 import com.private_projects.technews.utils.ViewBindingFragment
 import org.koin.core.scope.Scope
 
 interface CommonContract {
-    abstract class CommonViewModel : ViewModel() {
-        abstract fun getNews(): LiveData<PagingData<NewsDTO.Article>>
+    abstract class CommonViewModel(private val repository: NewsApiRepository) : ViewModel() {
+        fun getNews() = repository.getNews().cachedIn(viewModelScope)
     }
 
     abstract class CommonFragment<T: ViewBinding>(

@@ -1,8 +1,8 @@
-package com.private_projects.technews.ui.allnews
+package com.private_projects.technews.ui.ixbt
 
 import com.private_projects.technews.domain.NewsApiRepository
 import com.private_projects.technews.ui.CommonContract
 
-class AllNewsViewModel(
+class IxbtNewsViewModel(
     repository: NewsApiRepository
 ) : CommonContract.CommonViewModel(repository)

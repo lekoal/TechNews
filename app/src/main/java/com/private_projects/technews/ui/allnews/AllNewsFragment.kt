@@ -24,7 +24,7 @@ class AllNewsFragment :
     }
 
     override fun initRV() {
-        binding.allNewsRv.layoutManager = layoutManager
-        binding.allNewsRv.adapter = adapter
+        binding.newsRv.layoutManager = layoutManager
+        binding.newsRv.adapter = adapter
     }
 }
