@@ -1,12 +1,12 @@
-package com.private_projects.technews.data.details
+package com.private_projects.technews.data.detailsEntities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "images")
-data class ImageBlockEntity(
+@Entity(tableName = "videos")
+data class VideoBlockEntity(
     @PrimaryKey(autoGenerate = true)
-    val imageBlockId: Long = 0,
+    val videoBlockId: Long = 0,
     val ownerId: String,
     val position: Int,
     val url: String

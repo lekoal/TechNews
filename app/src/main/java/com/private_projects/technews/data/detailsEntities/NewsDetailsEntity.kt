@@ -1,4 +1,4 @@
-package com.private_projects.technews.data.details
+package com.private_projects.technews.data.detailsEntities
 
 import androidx.room.Embedded
 import androidx.room.Relation

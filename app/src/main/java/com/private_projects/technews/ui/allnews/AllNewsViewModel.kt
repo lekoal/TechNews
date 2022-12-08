@@ -5,4 +5,8 @@ import com.private_projects.technews.ui.CommonContract
 
 class AllNewsViewModel(
     repository: NewsApiRepository
-) : CommonContract.CommonViewModel(repository)
+) : CommonContract.CommonViewModel(repository) {
+    override fun receiveData(dataList: List<String>) {
+
+    }
+}

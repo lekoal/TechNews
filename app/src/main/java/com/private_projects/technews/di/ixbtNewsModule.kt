@@ -1,7 +1,9 @@
 package com.private_projects.technews.di
 
+import com.private_projects.technews.data.jsoup.IxbtElementReceiverImpl
 import com.private_projects.technews.data.newsapi.NewsApiRepositoryImpl
 import com.private_projects.technews.data.newsapi.NewsData
+import com.private_projects.technews.domain.ElementReceiver
 import com.private_projects.technews.domain.NewsApiRepository
 import com.private_projects.technews.ui.CommonContract
 import com.private_projects.technews.ui.ixbt.IxbtNewsFragment
@@ -14,9 +16,15 @@ val ixbtNewsModule = module {
     factory<NewsApiRepository>(named("ixbt_news_api_repository")) {
         NewsApiRepositoryImpl(get(named("news_api")), get(named("ixbt_domain")))
     }
+    single<ElementReceiver>(named("ixbt_element_receiver")) {
+        IxbtElementReceiverImpl()
+    }
     scope<IxbtNewsFragment> {
         scoped<CommonContract.CommonViewModel>(named("ixbt_news_view_model")) {
-            IxbtNewsViewModel(get(named("ixbt_news_api_repository")))
+            IxbtNewsViewModel(
+                get(named("ixbt_news_api_repository")),
+                get(named("ixbt_element_receiver"))
+            )
         }
     }
 }

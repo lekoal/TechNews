@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.LoadState
@@ -20,6 +19,7 @@ import org.koin.core.scope.Scope
 interface CommonContract {
     abstract class CommonViewModel(private val repository: NewsApiRepository) : ViewModel() {
         fun getNews() = repository.getNews().cachedIn(viewModelScope)
+        abstract fun receiveData(dataList: List<String>)
     }
 
     abstract class CommonFragment<T: ViewBinding>(
@@ -51,8 +51,8 @@ interface CommonContract {
             }
         }
         private fun onItemClick() {
-            adapter.onItemClick = { url ->
-                Toast.makeText(requireContext(), url, Toast.LENGTH_SHORT).show()
+            adapter.onItemClick = { dataList ->
+                viewModel.receiveData(dataList)
             }
         }
         private fun isLoading() {

@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat
 
 class NewsPagerAdapter :
     PagingDataAdapter<NewsDTO.Article, NewsPagerAdapter.NewsViewHolder>(NewsListComparator) {
-    var onItemClick: ((String) -> Unit)? = null
+    var onItemClick: ((List<String>) -> Unit)? = null
 
     object NewsListComparator : DiffUtil.ItemCallback<NewsDTO.Article>() {
         override fun areItemsTheSame(oldItem: NewsDTO.Article, newItem: NewsDTO.Article): Boolean {
@@ -50,7 +50,14 @@ class NewsPagerAdapter :
             .into(holder.image)
         holder.description.text = newsItem.description
         holder.itemView.setOnClickListener {
-            onItemClick?.invoke(newsItem.url)
+            onItemClick?.invoke(
+                listOf(
+                    newsItem.url,
+                    newsItem.source.name,
+                    holder.author.text.toString(),
+                    newsItem.publishedAt
+                )
+            )
         }
     }
 
