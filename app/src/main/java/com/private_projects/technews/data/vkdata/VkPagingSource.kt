@@ -1,27 +1,30 @@
-package com.private_projects.technews.data.newsapi
+package com.private_projects.technews.data.vkdata
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.private_projects.technews.domain.NewsApi
+import com.private_projects.technews.domain.VkApi
 
-class NewsPagingSource(private val newsApi: NewsApi, private val domains: String) :
-    PagingSource<Int, NewsDTO.Article>() {
-    override fun getRefreshKey(state: PagingState<Int, NewsDTO.Article>): Int? {
+class VkPagingSource(
+    private val vkApi: VkApi,
+    private val ownerId: Int
+) : PagingSource<Int, VkWallGetDTO.Response.Item>() {
+    override fun getRefreshKey(state: PagingState<Int, VkWallGetDTO.Response.Item>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
                 ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(1)
         }
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, NewsDTO.Article> {
+    override suspend fun load(params: LoadParams<Int>):
+            LoadResult<Int, VkWallGetDTO.Response.Item> {
         return try {
             val position = params.key ?: 1
-            val response = newsApi.getNews(
-                domains = domains,
-                page = position
+            val response = vkApi.vkGet(
+                ownerId = ownerId,
+                offset = position
             )
             LoadResult.Page(
-                data = response.body()!!.articles,
+                data = response.body()!!.items,
                 prevKey = if (position == 1) null
                 else position - 1,
                 nextKey = position + 1

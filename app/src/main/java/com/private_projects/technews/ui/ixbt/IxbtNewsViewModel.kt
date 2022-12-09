@@ -2,7 +2,7 @@ package com.private_projects.technews.ui.ixbt
 
 import android.util.Log
 import com.private_projects.technews.domain.ElementReceiver
-import com.private_projects.technews.domain.NewsApiRepository
+import com.private_projects.technews.domain.VkApiRepository
 import com.private_projects.technews.ui.CommonContract
 import com.private_projects.technews.utils.IxbtElementToEntityConverter
 import kotlinx.coroutines.CoroutineScope
@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import org.jsoup.nodes.Element
 
 class IxbtNewsViewModel(
-    repository: NewsApiRepository,
+    repository: VkApiRepository,
     private val elementReceiver: ElementReceiver
 ) : CommonContract.CommonViewModel(repository) {
 

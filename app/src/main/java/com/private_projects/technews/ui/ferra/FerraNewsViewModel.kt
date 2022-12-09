@@ -1,10 +1,10 @@
 package com.private_projects.technews.ui.ferra
 
-import com.private_projects.technews.domain.NewsApiRepository
+import com.private_projects.technews.domain.VkApiRepository
 import com.private_projects.technews.ui.CommonContract
 
 class FerraNewsViewModel(
-    repository: NewsApiRepository
+    repository: VkApiRepository
 ) : CommonContract.CommonViewModel(repository) {
     override fun receiveData(dataList: List<String>) {
 

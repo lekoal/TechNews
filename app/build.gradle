@@ -37,8 +37,8 @@ android {
     buildTypes.each {
         Properties properties = new Properties()
         properties.load(project.rootProject.file("apikeys.properties").newDataInputStream())
-        def news_api_key = properties.getProperty("NEWS_API_KEY", "")
-        it.buildConfigField "String", "NEWS_API_KEY", news_api_key
+        def vk_api_key = properties.getProperty("VK_API_KEY", "")
+        it.buildConfigField "String", "VK_API_KEY", vk_api_key
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8

@@ -1,6 +1,7 @@
 package com.private_projects.technews.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,15 +11,15 @@ import androidx.paging.LoadState
 import androidx.paging.cachedIn
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewbinding.ViewBinding
-import com.private_projects.technews.data.newsapi.NewsPagerAdapter
-import com.private_projects.technews.domain.NewsApiRepository
+import com.private_projects.technews.data.vkdata.VkNewsPagerAdapter
+import com.private_projects.technews.domain.VkApiRepository
 import com.private_projects.technews.ui.main.MainActivity
 import com.private_projects.technews.utils.ViewBindingFragment
 import org.koin.core.scope.Scope
 
 interface CommonContract {
-    abstract class CommonViewModel(private val repository: NewsApiRepository) : ViewModel() {
-        fun getNews() = repository.getNews().cachedIn(viewModelScope)
+    abstract class CommonViewModel(private val repository: VkApiRepository) : ViewModel() {
+        fun getNews() = repository.vkGet().cachedIn(viewModelScope)
         abstract fun receiveData(dataList: List<String>)
     }
 
@@ -29,7 +30,7 @@ interface CommonContract {
     ) : ViewBindingFragment<T>(inflateBinding) {
         abstract val scope: Scope
         abstract val viewModel: CommonViewModel
-        abstract val adapter: NewsPagerAdapter
+        abstract val adapter: VkNewsPagerAdapter
         protected lateinit var layoutManager: LinearLayoutManager
         private lateinit var parentActivity: MainActivity
 
