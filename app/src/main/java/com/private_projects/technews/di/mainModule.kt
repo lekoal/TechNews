@@ -1,9 +1,10 @@
 package com.private_projects.technews.di
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import com.private_projects.technews.data.vkdata.ixbt.VkIxbtApiRepositoryImpl
 import com.private_projects.technews.data.vkdata.VkHelpData
-import com.private_projects.technews.data.vkdata.VkNewsPagerAdapter
-import com.private_projects.technews.domain.VkApi
+import com.private_projects.technews.domain.ixbt.VkIxbtApi
+import com.private_projects.technews.domain.ixbt.VkIxbtApiRepository
 import com.private_projects.technews.ui.main.MainActivity
 import com.private_projects.technews.ui.main.MainViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -14,7 +15,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 val mainModule = module {
     single(named("base_url")) { VkHelpData.BASE_URL }
-    single<Retrofit>(named("retrofit")) {
+    factory<VkIxbtApiRepository>(named("news_api_repository")) {
+        VkIxbtApiRepositoryImpl(get(named("news_api")))
+    }
+    factory<Retrofit>(named("retrofit")) {
         Retrofit.Builder()
             .baseUrl(get<String>(named("base_url")))
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
@@ -22,10 +26,7 @@ val mainModule = module {
             .build()
     }
     factory(named("news_api")) {
-        get<Retrofit>(named("retrofit")).create(VkApi::class.java)
-    }
-    factory(named("news_adapter")) {
-        VkNewsPagerAdapter()
+        get<Retrofit>(named("retrofit")).create(VkIxbtApi::class.java)
     }
     scope<MainActivity> {
         viewModel(named("main_view_model")) {

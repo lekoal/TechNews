@@ -13,7 +13,7 @@ class App : Application() {
         startKoin {
             androidLogger()
             androidContext(this@App)
-            modules(allNewsModule, mainModule, ixbtNewsModule, ferraNewsModule, tDNewsModule)
+            modules(mainModule, ixbtNewsModule)
         }
     }
 }

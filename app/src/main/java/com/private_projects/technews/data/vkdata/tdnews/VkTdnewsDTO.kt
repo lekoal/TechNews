@@ -1,9 +1,9 @@
-package com.private_projects.technews.data.vkdata
+package com.private_projects.technews.data.vkdata.tdnews
 
 
 import com.google.gson.annotations.SerializedName
 
-data class VkWallGetDTO(
+data class VkTdnewsDTO(
     val response: Response
 ) {
     data class Response(
